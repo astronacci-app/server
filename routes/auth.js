@@ -13,9 +13,11 @@ router.post('/register', async (req, res) => {
       'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, name, email, role',
       [name, email, hashedPassword, role || 'A']
     );
+    console.log(result, " Result from database");
+    
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ message: 'Registration failed' });
   }
 });
